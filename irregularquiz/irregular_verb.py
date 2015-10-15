@@ -2,6 +2,7 @@
 # -*- mode:python; coding:utf-8; -*-
 # author: Ruslan Pisarev
 
+import os
 import random
 from json import dumps
 from sqlite3 import connect
@@ -126,5 +127,4 @@ def create_quiz_tr():
     return tr.format(position, tds[0], tds[1], tds[2])
 
 
-
-run(host='0.0.0.0', port=6087)
+run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
