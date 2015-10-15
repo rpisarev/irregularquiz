@@ -102,7 +102,8 @@ def choice_verb(position):
                  1: "past_simple",
                  2: "past_participle"}[position]
     verb_number = random.choice(xrange(188))
-    sqlite_connect = connect("irregular_verb_en.db")
+    sqlite_connect = connect(os.path.join(os.path.abspath(os.path.dirname(__file__)),
+                                          "irregular_verb_en.db"))
     c = sqlite_connect.cursor()
     query = "select `{}` from irregular where id = {}"
     c.execute(query.format(verb_form, verb_number))
