@@ -1,1 +1,1 @@
-web: python irregularquiz/irregular_verb.py
+web: python irregularquiz/irregular_verb.py collectstatic
