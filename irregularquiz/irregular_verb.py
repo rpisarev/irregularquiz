@@ -51,7 +51,8 @@ def check_irregular_verb():
     input1 = request.forms.get("input1")
     input2 = request.forms.get("input2")
     main = request.forms.get("main")
-    sqlite_connect = connect("irregular_verb_en.db")
+    sqlite_connect = connect(os.path.join(os.path.abspath(os.path.dirname(__file__)),
+                                          "irregular_verb_en.db"))
     c = sqlite_connect.cursor()
     query = "select `infinitive`, `past_simple`, `past_participle` from irregular where id={}"
     c.execute(query.format(num))
