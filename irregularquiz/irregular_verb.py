@@ -11,12 +11,14 @@ from bottle import route, run, request, redirect
 
 @route('/')
 def main_page_irregular():
-    return open("template/main.html").read()
+    return open(os.path.join(os.path.abspath(os.path.dirname(__file__)),
+                        "template/main.html")).read()
 
 
 @route('/en/irregular/verb')
 def irr_page_open():
-    return open("template/irregular_verb.html").read()
+    return open(os.path.join(os.path.abspath(os.path.dirname(__file__)),
+                        "template/irregular_verb.html")).read()
 
 
 @route('/contacts')
