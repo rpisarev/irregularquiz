@@ -38,6 +38,11 @@ $(document).ready(function(){
                             $('#correct_answers').html(corr + parseInt(data.checkpoints));
                 }
         });
+    });
+    $('#input2').keypress(function(k){
+        if (k.which == 13) {
+            $("#btn").click();
+        }
     })
 })
 </script>
