@@ -1,0 +1,9 @@
+version: "3.7"
+
+services:
+  postgresql:
+    image: "biow0lf/irregularquiz:latest"
+    container_name: "irregularquiz_app"
+    restart: "unless-stopped"
+    ports:
+      - "5000:5000"
