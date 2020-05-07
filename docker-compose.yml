@@ -1,7 +1,7 @@
 version: "3.7"
 
 services:
-  postgresql:
+  app:
     image: "biow0lf/irregularquiz:latest"
     container_name: "irregularquiz_app"
     restart: "unless-stopped"
