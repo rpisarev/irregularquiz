@@ -14,4 +14,4 @@ COPY . .
 
 EXPOSE 5000/tcp
 
-CMD ["python", "irregularquiz/irregular_verb.py", "collectstatic"]
+CMD ["python", "irregularquiz/irregular_verb.py"]
