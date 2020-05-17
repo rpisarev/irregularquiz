@@ -33,7 +33,7 @@ def check_verb(verb, sample):
 def gen_correct_tr(correct_verbs, user_verbs, rights):
     tr = """<tr>\n<td>{}</td>\n<td>{}</td>\n<td>{}</td>\n</tr>\n"""
     tds = []
-    for x in xrange(3):
+    for x in range(3):
         if rights[x]:
             content = """<span style="color:green">{}</span>""".format(user_verbs[x])
         else:
@@ -102,7 +102,7 @@ def choice_verb(position):
     verb_form = {0: "infinitive",
                  1: "past_simple",
                  2: "past_participle"}[position]
-    verb_number = random.choice(xrange(188))
+    verb_number = random.choice(range(188))
     sqlite_connect = connect(os.path.join(os.path.abspath(os.path.dirname(__file__)),
                                           "irregular_verb_en.db"))
     c = sqlite_connect.cursor()
@@ -110,16 +110,16 @@ def choice_verb(position):
     c.execute(query.format(verb_form, verb_number))
     res = c.fetchall()[0][0]
     c.close()
-    return res.split(",")[random.choice(xrange(2))] if "," in res else res, verb_number
+    return res.split(",")[random.choice(range(2))] if "," in res else res, verb_number
 
 
 def create_quiz_tr():
-    position = random.choice(xrange(3))
+    position = random.choice(range(3))
     verb, num = choice_verb(position)
     tr = """<tr data-position="{}">\n<td>{}</td>\n<td>{}</td>\n<td>{}</td>\n</tr>\n"""
     tds = []
     input_count = 1
-    for td in xrange(3):
+    for td in range(3):
         if td == position:
             content = """<span id="main_value" data-num="{}">{}</span>""".format(
                 num, verb)

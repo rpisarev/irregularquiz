@@ -1,0 +1,4 @@
+#! /bin/bash
+
+docker build -t biow0lf/irregularquiz:v1.0.0 . --no-cache
+docker push biow0lf/irregularquiz:v1.0.0

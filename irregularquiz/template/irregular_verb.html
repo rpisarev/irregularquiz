@@ -1,140 +1,170 @@
-<html><head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-        <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href="https://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
-	<title>Irregular Quiz</title>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
+    <title>Irregular Quiz</title>
     <style>
-   a:link {
-    color: yellow;
-   }
-   </style>
-<script>
-$(document).ready(function(){
-    $.ajax({url: '/start/en/irregular_verb',
-            type: 'POST',
-            success: function(start_tr) {
-                $('#main_table').append(start_tr)
-            }
-    });
-
-    $('#btn').click(function(){
-        var corr = parseInt($('#correct_answers').text());
-        var pos = $('#main_table tr:last').data('position');
-        var inp1 = document.getElementById("input1").value;
-        var inp2 = document.getElementById("input2").value;
-        var mn = $('#main_value').text();
-        var num = $('#main_value').attr('data-num');
-        $.ajax({url: '/check/en/irregular_verb',
-                data: {'input1': inp1,
-                       'input2': inp2,
-                       'verbid': num,
-                       'main': mn,
-                       'position': pos
-                       },
-                type: 'POST',
-                success: function(jsondata){
-                            var data = JSON.parse(jsondata);
-                            $('#possible_answers').html(parseInt($('#possible_answers').text()) + 2);
-                            $('#main_table tr:last').remove();
-                            $('#main_table').append(data.tr);
-                            $('#correct_answers').html(corr + parseInt(data.checkpoints));
-                }
+      a:link {
+        color: yellow;
+      }
+    </style>
+    <script>
+      $(document).ready(function(){
+        $.ajax({url: '/start/en/irregular_verb',
+          type: 'POST',
+          success: function(start_tr) {
+            $('#main_table').append(start_tr)
+          }
         });
-    });
-    $('#input2').keypress(function(k){
-        if (k.which == 13) {
+
+        $('#btn').click(function(){
+          var corr = parseInt($('#correct_answers').text());
+          var pos = $('#main_table tr:last').data('position');
+          var inp1 = document.getElementById("input1").value;
+          var inp2 = document.getElementById("input2").value;
+          var mn = $('#main_value').text();
+          var num = $('#main_value').attr('data-num');
+
+          $.ajax({url: '/check/en/irregular_verb',
+            data: {'input1': inp1,
+                   'input2': inp2,
+                   'verbid': num,
+                   'main': mn,
+                   'position': pos},
+            type: 'POST',
+            success: function(jsondata){
+              var data = JSON.parse(jsondata);
+              $('#possible_answers').html(parseInt($('#possible_answers').text()) + 2);
+              $('#main_table tr:last').remove();
+              $('#main_table').append(data.tr);
+              $('#correct_answers').html(corr + parseInt(data.checkpoints));
+            }
+          });
+        });
+
+        $('#input2').keypress(function(k){
+          if (k.which == 13) {
             $("#btn").click();
-        }
-    })
-})
-</script>
+          }
+        })
+      })
+    </script>
+  </head>
+  <body>
+    <div class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">
+            <span>Main</span>
+          </a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active">
+              <a href="/en/irregular/verb">Irregular Verbs Game</a>
+            </li>
+            <li>
+              <a href="/contacts">Contacts</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
+    <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <img class="img-responsive" src="https://s-media-cache-ak0.pinimg.com/236x/ff/6f/d5/ff6fd57640a0cbcd21b7ff123d5bbb2f.jpg">
+          </div>
+          <div class="col-md-6">
+            <h3>About game</h3>
+            <p>Rules of the game are simple. One proposed some form of the verb. Your goal is to finish the remaining two forms. After clicking on the "Check & next" your writing verb forms will be checked.</p>
+            <p>If the form is written correctly, it is highlighted in <span style="color:green">green</span>.</p>
+            <p>If the form is not correct, it is highlighted in <span style="color:red">red</span>. Here <span style="color:blue">blue</span> will be offered the correct options.</p>
 
-    </head><body>
+            <p>Below is a table of verbs published statistics of points - how to score points from as possible.</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<div class="navbar navbar-default navbar-static-top">
-        <div class="container">
-                <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
-                                <span class="sr-only">Toggle navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                        </button><a class="navbar-brand" href="/">
-                        <span>Main</span></a></div><div class="collapse navbar-collapse" id="navbar-ex-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                        <li class="active">
-                                <a href="/en/irregular/verb">Irregular Verbs Game</a>
-                        </li>
-                        <li>
-                                <a href="/contacts">Contacts</a>
-                        </li>
-                </ul>
-        </div></div></div>
-<div class="section">
-        <div class="container">
-                <div class="row">
-                        <div class="col-md-6">
-                                <img class="img-responsive" src="https://s-media-cache-ak0.pinimg.com/236x/ff/6f/d5/ff6fd57640a0cbcd21b7ff123d5bbb2f.jpg"> </div>
-                        <div class="col-md-6">
-                                <h3>About game</h3>
-                                <p>Rules of the game are simple. One proposed some form of the verb. Your goal is to finish the remaining two forms. After clicking on the "Check & next" your writing verb forms will be checked.</p>
-<p>If the form is written correctly, it is highlighted in <span style="color:green">green</span>.</p>
-<p>If the form is not correct, it is highlighted in <span style="color:red">red</span>. Here <span style="color:blue">blue</span> will be offered the correct options.</p>
+    <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <table class="table" id="main_table">
+              <thead>
+                <tr>
+                  <th>Infinitive</th>
+                  <th>Past Simple</th>
+                  <th>Past&nbsp;Participle</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<p>Below is a table of verbs published statistics of points - how to score points from as possible.</p>
-                        </div></div></div></div>
-<div class="section">
-        <div class="container">
-                <div class="row">
-                        <div class="col-md-12">
-                                <table class="table" id="main_table">
-                                        <thead>
-                                        <tr>
-                                                <th>Infinitive</th>
-                                                <th>Past Simple</th>
-                                                <th>Past&nbsp;Participle</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
+    <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <a class="btn btn-primary" id="btn">Check & next</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-                                        </tbody>
-                                </table>
-                        </div></div></div></div>
-<div class="section">
-        <div class="container">
-                <div class="row">
-                        <div class="col-md-12">
-                                <a class="btn btn-primary" id="btn">Check & next</a>
-                        </div></div></div></div>
-<div class="section">
-        <div class="container">
-                <div class="row">
-                        <div class="col-md-12">
-                                <p><span id="correct_answers">0</span> from <span id="possible_answers">0</span></p>
-                        </div></div></div></div>
-<footer class="section section-primary">
-        <div class="container">
-                <div class="row">
-                        <div class="col-sm-6">
-                                <h1>Project for fun, unpaid</h1>
-                                <p>Sources of this site place on <a href="https://github.com/rpisarev/irregularquiz" style="link:yellow" >github</a></p>
-                        </div>
-                        <div class="col-sm-6">
-                                <p class="text-info text-right"> <br><br></p>
-                                <div class="row">
-                                        <div class="col-md-12 hidden-lg hidden-md hidden-sm text-left">
-                                                <a href="#"><i class="fa fa-3x fa-fw fa-instagram text-inverse"></i></a>
-                                                <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
-                                                <a href="ttps://www.facebook.com/ruslanpisarev"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
-                                                <a href="https://github.com/rpisarev"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a> </div></div>
-                                <div class="row"> <div class="col-md-12 hidden-xs text-right">
-                                        <a href="https://www.facebook.com/ruslanpisarev"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
-                                        <a href="https://github.com/rpisarev"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
-                                </div></div></div></div></div>
-</footer>
-</body>
+    <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <p><span id="correct_answers">0</span> from <span id="possible_answers">0</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="section section-primary">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6">
+            <h1>Project for fun, unpaid</h1>
+            <p>Sources of this site place on <a href="https://github.com/rpisarev/irregularquiz" style="link:yellow" >github</a></p>
+          </div>
+          <div class="col-sm-6">
+            <p class="text-info text-right"> <br><br></p>
+            <div class="row">
+              <div class="col-md-12 hidden-lg hidden-md hidden-sm text-left">
+                <a href="#"><i class="fa fa-3x fa-fw fa-instagram text-inverse"></i></a>
+                <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
+                <a href="https://www.facebook.com/ruslanpisarev"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
+                <a href="https://github.com/rpisarev"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 hidden-xs text-right">
+                <a href="https://www.facebook.com/ruslanpisarev"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
+                <a href="https://github.com/rpisarev"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
 </html>
